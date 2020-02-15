@@ -1,0 +1,87 @@
+package swingawtevents;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+public class CalorieCalculator implements ActionListener {
+    JFrame frame;
+    JLabel lblTotalCalories;
+    JTextField tfCalories;
+    JCheckBox chkTomato, chkPotato,chkSpinach,chkCarrot,chkRedish;
+    JButton btnCalculate;
+    JButton btnClear;
+    // setting layout
+    public void initGUI() {
+        frame = new JFrame("Calorie Calculator");
+        lblTotalCalories=new JLabel("Total Calories");
+        tfCalories=new JTextField(15);
+        chkCarrot=new JCheckBox("Carrot");
+        chkRedish=new JCheckBox("Reddish");
+        chkSpinach=new JCheckBox("Spinach");
+        chkPotato=new JCheckBox("Potato");
+        chkTomato=new JCheckBox("Tomato");
+        btnCalculate=new JButton("Calculate Calories");
+        btnClear=new JButton("Clear");
+        Container cont = frame.getContentPane();
+        cont.setLayout(new BorderLayout());
+
+
+        JPanel checkPanel = new JPanel(new GridLayout(5, 1));
+        checkPanel.add(chkTomato);
+        checkPanel.add(chkPotato);
+        checkPanel.add(chkCarrot);
+        checkPanel.add(chkRedish);
+        checkPanel.add(chkSpinach);
+
+        JPanel panel = new JPanel(new GridLayout(2, 2));
+        panel.add(lblTotalCalories);
+        panel.add(tfCalories);
+        panel.add(btnCalculate);
+        panel.add(btnClear);
+        cont.add(checkPanel, BorderLayout.CENTER);
+        cont.add(panel, BorderLayout.SOUTH);
+        btnCalculate.addActionListener(this);
+        btnClear.addActionListener(this);
+        tfCalories.setText("0");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 400);
+        frame.setVisible(true);
+    }
+
+    // constructor
+    public CalorieCalculator() {
+        initGUI();
+    }
+
+    public void actionPerformed(ActionEvent event) {
+        int count=0;
+        if(event.getSource()==btnCalculate){
+
+            count+=chkCarrot.isSelected()?50:0;
+            count+=chkRedish.isSelected()?40:0;
+            count+=chkPotato.isSelected()?120:0;
+            count+=chkSpinach.isSelected()?70:0;
+            count+=chkTomato.isSelected()?60:0;
+            tfCalories.setText(Integer.toString(count));
+
+        }
+        else{
+            chkCarrot.setSelected(false);
+            chkRedish.setSelected(false);
+            chkPotato.setSelected(false);
+            chkSpinach.setSelected(false);
+            chkTomato.setSelected(false);
+            tfCalories.setText("0");
+        }
+        /*
+         * All the information regarding an event is contained inside the event
+         * object. Here we are calling the getSource() method on the event
+         * object to figure out the button that has generated that event.
+         */
+
+    }
+
+
+}
